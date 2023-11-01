@@ -21,15 +21,15 @@ export default class ClientRepository implements ClientGateway {
       zipcode: entity.address.zipCode,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt
-    })
+    });
   }
 
   async find(id: string): Promise<Client> {
 
-    const client = await ClientModel.findOne({ where: { id } })
+    const client = await ClientModel.findOne({ where: { id } });
 
     if (!client) {
-      throw new Error("Client not found")
+      throw new Error("Client not found");
     }
 
     return new Client({
@@ -47,6 +47,6 @@ export default class ClientRepository implements ClientGateway {
       ),
       createdAt: client.createdAt,
       updatedAt: client.createdAt
-    })
+    });
   }
 }

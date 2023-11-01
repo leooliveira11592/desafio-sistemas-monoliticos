@@ -22,15 +22,15 @@ export default class InvoiceRepository implements InvoiceGateway {
       items: entity.items,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt
-    })
+    });
   }
 
   async find(id: string): Promise<Invoice> {
 
-    const invoice = await InvoiceModel.findOne({ where: { id } })
+    const invoice = await InvoiceModel.findOne({ where: { id } });
 
     if (!invoice) {
-      throw new Error("Invoice not found")
+      throw new Error("Invoice not found");
     }
 
     return new Invoice({
@@ -45,15 +45,15 @@ export default class InvoiceRepository implements InvoiceGateway {
         invoice.state,
         invoice.zipcode,
       ),
-      items: [new InvoiceItems(
-        {
-          id: new Id("1"),
-          name: "nota 1",
-          price: 100
-        }
-      )],
+      items: invoice.items.map( (item) =>
+        new InvoiceItems({
+          id: new Id(item.id),
+          name: item.name,
+          price: item.price,
+        })
+      ),
       createdAt: invoice.createdAt,
-      updatedAt: invoice.createdAt
-    })
+      updatedAt: invoice.updatedAt
+    });
   }
 }

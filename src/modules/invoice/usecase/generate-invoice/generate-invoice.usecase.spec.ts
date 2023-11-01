@@ -28,14 +28,14 @@ describe("Generate Invoice use case unit test", () => {
       zipCode: "88888-888",
       items: [new InvoiceItems(
         {
-          id: new Id("1"),
-          name: "nota 1",
+          id: new Id("111"),
+          name: "nota 111",
           price: 100
         }
       )]
     }
 
-    const result =  await usecase.execute(input);
+    const result = await usecase.execute(input);
 
     expect(repository.generate).toHaveBeenCalled();
     expect(result.id).toBeDefined();

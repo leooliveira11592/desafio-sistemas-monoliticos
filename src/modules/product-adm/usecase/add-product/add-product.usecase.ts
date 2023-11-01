@@ -22,6 +22,9 @@ export default class AddProductUseCase {
     const product = new Product(props);
     this._productRepository.add(product);
 
+    console.log("Produto criado: " + product.id.id);
+    console.log("Nome Produto criado: " + product.name);
+
     return {
       id: product.id.id,
       name: product.name,

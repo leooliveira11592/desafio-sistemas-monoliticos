@@ -20,6 +20,8 @@ export default class ProcessPaymentUseCase implements UseCaseInterface {
     const persistTransaction = await this.transactionRepository.save(
       transaction
     );
+    
+    console.log("Pagamento criado: " + persistTransaction.id.id);
 
     return {
       transactionId: persistTransaction.id.id,

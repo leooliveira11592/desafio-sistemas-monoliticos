@@ -15,38 +15,38 @@ interface InvoiceItems {
 export class InvoiceModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string
+  id: string;
 
   @Column({ allowNull: false })
-  name: string
+  name: string;
 
   @Column({ allowNull: false })
-  document: string
+  document: string;
 
   @Column({ allowNull: false })
-  street: string
+  street: string;
 
   @Column({ allowNull: false })
-  number: string
+  number: string;
 
   @Column({ allowNull: true })
-  complement: string
+  complement: string;
 
   @Column({ allowNull: false })
-  city: string
+  city: string;
 
   @Column({ allowNull: false })
-  state: string
+  state: string;
 
   @Column({ allowNull: false })
-  zipcode: string
+  zipcode: string;
 
   @Column({ allowNull: false, type: DataType.JSON })
   items: InvoiceItems[];
 
   @Column({ allowNull: false })
-  createdAt: Date
+  createdAt: Date;
 
   @Column({ allowNull: false })
-  updatedAt: Date
+  updatedAt: Date;
 }

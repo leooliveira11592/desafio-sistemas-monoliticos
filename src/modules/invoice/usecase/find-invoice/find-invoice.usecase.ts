@@ -4,26 +4,26 @@ import { FindInvoiceUseCaseInputDTO, FindInvoiceUseCaseOutputDTO } from "./find-
 
 export default class FindInvoiceUseCase {
 
-  private _invoiceRepository: InvoiceGateway
+  private _invoiceRepository: InvoiceGateway;
 
   constructor(invoiceRepository: InvoiceGateway) {
-    this._invoiceRepository = invoiceRepository
+    this._invoiceRepository = invoiceRepository;
   }
 
   async execute(input: FindInvoiceUseCaseInputDTO): Promise<FindInvoiceUseCaseOutputDTO> {
 
-    const result = await this._invoiceRepository.find(input.id)
+    const result = await this._invoiceRepository.find(input.id);
 
-    const items = result.items.map((item) => (
-      {
+    const items = result.items.map((item) => {
+      return {
         id: item.id.id,
         name: item.name,
-        price: item.price,
+        price: item.price
       }
-    ));
+    });
 
     return {
-      id: input.id,
+      id: result.id.id,
       name: result.name,
       document: result.document,
       address: new Address(

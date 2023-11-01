@@ -6,16 +6,18 @@ import { AddClientInputDto, AddClientOutputDto } from "./add-client.usecase.dto"
 
 export default class AddClientUseCase {
 
-  private _clientRepository: ClientGateway
+  private _clientRepository: ClientGateway;
 
   constructor(clientRepository: ClientGateway) {
-    this._clientRepository = clientRepository
+    this._clientRepository = clientRepository;
   }
 
   async execute(input: AddClientInputDto): Promise<AddClientOutputDto> {
 
+    // id: new Id(input.id) || new Id(),
+
     const props = {
-      id: new Id(input.id) || new Id(),
+      id: new Id(input.id),
       name: input.name,
       email: input.email,
       document: input.document,
@@ -29,8 +31,11 @@ export default class AddClientUseCase {
       )
     }
 
-    const client = new Client(props)
-    await this._clientRepository.add(client)
+    const client = new Client(props);
+    await this._clientRepository.add(client);
+
+    console.log("ID Cliente criado: " + client.id.id);
+    console.log("Nome Cliente criado: " + client.name);
 
     return {
       id: client.id.id,

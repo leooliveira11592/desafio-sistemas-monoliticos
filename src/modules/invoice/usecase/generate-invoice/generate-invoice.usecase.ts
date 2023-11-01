@@ -7,50 +7,34 @@ import { GenerateInvoiceInputDto, GenerateInvoiceOutputDto } from "./generate-in
 
 export default class GenerateInvoiceUseCase {
 
-  private _invoiceRepository: InvoiceGateway
+  private _invoiceRepository: InvoiceGateway;
 
   constructor(invoiceRepository: InvoiceGateway) {
-    this._invoiceRepository = invoiceRepository
+    this._invoiceRepository = invoiceRepository;
   }
 
   async execute(input: GenerateInvoiceInputDto): Promise<GenerateInvoiceOutputDto> {
 
-    const props = {
-      id: new Id(input.id) || new Id(),
-      name: input.name,
-      document: input.document,
-      street: input.street,
-      number: input.number,
-      complement: input.complement,
-      city: input.city,
-      state: input.state,
-      zipCode: input.zipCode,
-      items: input.items.map( (item) =>
-        new InvoiceItems({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-        })
-      )
-    }
-    
     const propsInvoice = {
       id: new Id(input.id) || new Id(),
       name: input.name,
       document: input.document,
       address: new Address(
-        props.street,
-        props.number,
-        props.complement,
-        props.city,
-        props.state,
-        props.zipCode,
+        input.street,
+        input.number,
+        input.complement,
+        input.city,
+        input.state,
+        input.zipCode,
       ),
-      items: props.items
+      items: input.items
     }
 
-    const invoice = new Invoice(propsInvoice)
-    await this._invoiceRepository.generate(invoice)
+    const invoice = new Invoice(propsInvoice);
+    await this._invoiceRepository.generate(invoice);
+
+    console.log("Nota criada: " + invoice.id.id);
+    console.log("Nome Nota criada: " + invoice.name);
 
     return {
       id: invoice.id.id,
@@ -64,11 +48,11 @@ export default class GenerateInvoiceUseCase {
         invoice.address.state,
         invoice.address.zipCode,
       ),
-      items: input.items.map( (item) =>
+      items: invoice.items.map( (item) =>
         new InvoiceItems({
           id: item.id,
           name: item.name,
-          price: item.price,
+          price: item.price
         })
       ),
       createdAt: invoice.createdAt,

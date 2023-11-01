@@ -5,15 +5,15 @@ import { FindClientUseCaseInputDto, FindClientUseCaseOutputDto } from "./find-cl
 
 export default class FindClientUseCase {
 
-  private _clientRepository: ClientGateway
+  private _clientRepository: ClientGateway;
 
   constructor(clientRepository: ClientGateway) {
-    this._clientRepository = clientRepository
+    this._clientRepository = clientRepository;
   }
 
   async execute(input: FindClientUseCaseInputDto): Promise<FindClientUseCaseOutputDto> {
 
-    const result = await this._clientRepository.find(input.id)
+    const result = await this._clientRepository.find(input.id);
 
     return {
       id: result.id.id,

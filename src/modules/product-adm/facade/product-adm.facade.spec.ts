@@ -36,7 +36,7 @@ describe("ProductAdmFacade test", () => {
       name: "Product 1",
       description: "Product 1 description",
       purchasePrice: 10,
-      stock: 10,
+      stock: 10
     };
 
     await productFacade.addProduct(input);
@@ -51,7 +51,9 @@ describe("ProductAdmFacade test", () => {
   });
 
   it("should check product stock", async () => {
+    
     const productFacade = ProductAdmFacadeFactory.create();
+
     const input = {
       id: "1",
       name: "Product 1",
@@ -59,6 +61,7 @@ describe("ProductAdmFacade test", () => {
       purchasePrice: 10,
       stock: 10,
     };
+
     await productFacade.addProduct(input);
 
     const result = await productFacade.checkStock({ productId: "1" });
